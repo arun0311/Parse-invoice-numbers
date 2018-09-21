@@ -1,0 +1,43 @@
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<style type="text/css">
+.divCenter {
+	border: 0px solid ;
+	padding-top: 50px;
+    text-align: center;  
+}
+
+#filename {
+	border: 0px ;
+    background-color: white ;
+    color: black;
+    margin: 6px;
+    text-align: center;
+}
+</style>
+
+<div class="divCenter">
+<%= form_tag({:action => :upload}, id: "my_form", multipart: true) do %>
+<input type="file" name="file" accept=".txt" id="img" style="border: 1px solid;display:none;" runat="server"/>
+<br>
+<label for="img"> Click here to upload Txt</label>
+<br/>
+<input id="filename" type="text" disabled="true" style="border: 0px;" />
+<br/>
+  <%= submit_tag "Submit",:id=>"submit_btn", :class => "btn btn-primary" ,:id => "submit"  %>
+<% end %>
+</div>
+
+<script type="text/javascript">	
+document.getElementById('img').onchange = uploadOnChange;
+   
+function uploadOnChange() {
+   var filename = this.value;
+   var lastIndex = filename.lastIndexOf("\\");
+   if (lastIndex >= 0) {
+       filename = filename.substring(lastIndex + 1);
+   }
+   document.getElementById('filename').value = filename;
+}
+</script>
